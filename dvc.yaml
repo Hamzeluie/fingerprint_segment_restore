@@ -1,0 +1,14 @@
+stages:
+  preproccess_train:
+    cmd: python src/preprocess_train.py params.yaml
+    deps:
+    - data/fingerprint
+    - src/preprocess_train.py
+    params:
+    - preproccess_train.batch_size
+    - preproccess_train.dir_img
+    - preproccess_train.dir_mask
+    - preproccess_train.epochs
+    - preproccess_train.load
+    outs:
+    - checkpoints/preproccess

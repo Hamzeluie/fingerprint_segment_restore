@@ -1,0 +1,14 @@
+postproccess:
+  input_dir: "/home/naserwin/hamze/dataset_tmp/tmp"
+preproccess_train:
+  dir_img: "/home/naserwin/hamze/dataset_tmp/fingerprint2/images"
+  dir_mask: "/home/naserwin/hamze/dataset_tmp/fingerprint2/targets"
+  load: ""
+  epochs: 300
+  batch_size: 8
+
+  
+
+
+
+
