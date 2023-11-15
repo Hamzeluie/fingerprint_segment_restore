@@ -1,0 +1,6 @@
+outs:
+- md5: 2c62e77b554412eb0efa3e9a6953e598.dir
+  size: 345911487
+  nfiles: 3996
+  hash: md5
+  path: fingerprint
