@@ -3,7 +3,7 @@ import sys
 parent = Path(__file__).parents
 path_root = parent[1]
 sys.path.append(str(path_root))
-import argparse
+from argparse import Namespace
 import logging
 import os
 import random
@@ -166,32 +166,29 @@ def train_model(
             logging.info(f'Checkpoint {epoch} saved!')
 
 
-def get_args():
-    parser = argparse.ArgumentParser(description='Train the UNet on images and target masks')
-    parser.add_argument('--epochs', '-e', metavar='E', type=int, default=150, help='Number of epochs')
-    parser.add_argument('--batch-size', '-b', dest='batch_size', metavar='B', type=int, default=5, help='Batch size')
-    parser.add_argument('--learning-rate', '-l', metavar='LR', type=float, default=1e-5, help='Learning rate', dest='lr')
-    # parser.add_argument('--load', '-f', type=str, default=True, help='Load model from a .pth file')
-    parser.add_argument('--load', '-f', type=str, default="/home/naserwin/hamze/Pytorch-UNet/checkpoints/checkpoint_epoch50.pth", help='Load model from a .pth file')
-    parser.add_argument('--scale', '-s', type=float, default=0.5, help='Downscaling factor of the images')
-    parser.add_argument('--validation', '-v', dest='val', type=float, default=10.0, help='Percent of the data that is used as validation (0-100)')
-    # parser.add_argument('--amp', action='store_true', default=False, help='Use mixed precision')
-    parser.add_argument('--amp', default=True, help='Use mixed precision')
-    parser.add_argument('--bilinear', action='store_true', default=False, help='Use bilinear upsampling')
-    parser.add_argument('--classes', '-c', type=int, default=2, help='Number of classes')
-
-    return parser.parse_args()
+def setParameters(params):
+    data = {
+        "epochs": int(params["epochs"]),
+        "batch_size": int(params["batch_size"]),
+        "lr": float(params["lr"]),
+        "load": params["load"] if os.path.isfile(params["load"]) else False,
+        "scale": 0.5,
+        "val": 10.0,
+        "amp": True,
+        "bilinear": False,
+        "classes": 2
+        }
+        
+    return data
 
 
 if __name__ == '__main__':
     # parameters inititalization
-    args = get_args()
     # param_yaml_file = sys.argv[1]
     param_yaml_file = "/home/naserwin/hamze/fingerprint_segment_restore/params.yaml"
     params = yaml.safe_load(open(param_yaml_file))["preproccess_train"]
-    args.epochs = int(params["epochs"])
-    args.batch_size = int(params["batch_size"])
-    args.load = params["load"] if os.path.isfile(params["load"]) else False
+    data = setParameters(params)
+    args = Namespace(**data)
     dir_img = params["dir_img"]
     dir_mask = params["dir_mask"]
     assert args.epochs > 0, f"epochs should be upper than 0 ut is {args.epochs}"

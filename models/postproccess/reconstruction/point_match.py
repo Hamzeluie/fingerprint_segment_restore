@@ -207,8 +207,7 @@ def contours(gray):
     binary = cv2.erode(binary, kernel, iterations=2)
     binary = cv2.dilate(binary, kernel, iterations=3)
 
-    cloneImg, contours, heriachy = cv2.findContours(
-        binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    contours = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[0]
     new_img = np.ones(binary.shape, dtype=np.uint8) * 255  # 创建白色背景
     ###　凸包轮廓检测，保证边缘残缺在里面
     max_loc = 0

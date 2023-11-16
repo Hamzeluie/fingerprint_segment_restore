@@ -1,11 +1,16 @@
 postproccess:
-  input_dir: "/home/naserwin/hamze/dataset_tmp/tmp"
+  input_dir: "/home/naserwin/hamze/dataset_tmp/tmp_post"
 preproccess_train:
   dir_img: "/home/naserwin/hamze/dataset_tmp/fingerprint2/images"
   dir_mask: "/home/naserwin/hamze/dataset_tmp/fingerprint2/targets"
-  load: ""
+  load: "/home/naserwin/hamze/fingerprint_segment_restore/checkpoints/preproccess/checkpoint_epoch300.pth"
   epochs: 300
-  batch_size: 8
+  batch_size: 16
+  lr: 1e-8
+preproccess:
+  model_path: ""
+  input_dir: ""
+  output_dir: ""
 
   
 

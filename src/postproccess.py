@@ -18,7 +18,6 @@ input_dir = params["input_dir"]
 assert os.path.isdir(input_dir), "check inputdir"
 output_dir = os.path.join(path_root, "results/postproccess")
 assert os.path.isdir(output_dir), "check outputdir"
-
 png_path = [i for i in Path(input_dir).glob("**/*.png")]
 jpg_path = [i for i in Path(input_dir).glob("**/*.jpg")]
 jpeg_path = [i for i in Path(input_dir).glob("**/*.jpeg")]
@@ -34,6 +33,8 @@ for path in img_list_path:
     cv2.imwrite(thin_path, thin_img)
     background, new_img = draw_whole_img(thin_path)
     reconstructed = thick(new_img)
+    # cv2.imwrite(os.path.join(output_dir, img_name + "_new.png"), new_img)
+    # cv2.imwrite(os.path.join(output_dir, img_name + "_back.png"), background)
     cv2.imwrite(os.path.join(output_dir, img_name + "_reconstruct.png"), reconstructed)
 """
 dvc stage add -n postproccess \

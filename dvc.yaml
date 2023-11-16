@@ -10,5 +10,6 @@ stages:
     - preproccess_train.dir_mask
     - preproccess_train.epochs
     - preproccess_train.load
+    - preproccess_train.lr
     outs:
     - checkpoints/preproccess
